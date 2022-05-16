@@ -4,8 +4,9 @@ const h3Style = {
   fontSize: 15,
 };
 const Profile = (props) => {
-  let user = props.function();
-  console.log(user);
+  let userId = window.location.pathname.split("/")[2];
+  let user = props.function(userId);
+  //console.log(userId);
   return (
     <div className="row">
       <div className="col-sm-4">
@@ -13,8 +14,7 @@ const Profile = (props) => {
       </div>
       <div className="col-sm-8">
         <h2 style={{ color: "red" }}>
-          ID: {user.id}
-          {user.name} {user.lastname}
+          ID: {user.id} {user.name} {user.lastname}
         </h2>
         <h3 style={h3Style}>Обо мне</h3>
         <p className={styles.about}>{user.about}</p>
