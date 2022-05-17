@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import React from "react";
 
 const TableRow = (props) => {
   return (
@@ -13,34 +14,44 @@ const TableRow = (props) => {
   );
 };
 
-const Friends = (props) => {
-  let users = props.function();
-  // console.log(Object.keys(users).length);
-  let usersCount = Object.keys(users).length;
-  let userRow = [];
+class Friends extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { userRow: [] };
+  }
 
-  for (let i = 0; i < usersCount; i++) {
-    userRow.push(
-      <TableRow
-        index={i}
-        key={i}
-        name={users[i].name}
-        lastname={users[i].lastname}
-        id={users[i].id}
-      />
+  componentDidMount() {
+    this.props.function().then((users) => {
+      let usersCount = users.length;
+      let userRow = [];
+
+      for (let i = 0; i < usersCount; i++) {
+        userRow.push(
+          <TableRow
+            index={i}
+            key={i}
+            name={users[i].name}
+            lastname={users[i].lastname}
+            id={users[i].id}
+          />
+        );
+      }
+      this.setState({ userRow: userRow });
+    });
+  }
+
+  render() {
+    return (
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Фамилия и имя</th>
+          </tr>
+        </thead>
+        <tbody>{this.state.userRow}</tbody>
+      </table>
     );
   }
-  return (
-    <table className="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Фамилия и имя</th>
-        </tr>
-      </thead>
-      <tbody>{userRow}</tbody>
-    </table>
-  );
-};
-
+}
 export default Friends;
