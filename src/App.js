@@ -7,11 +7,11 @@ import Friends from "./components/Friends";
 
 function App(props) {
   return (
-    <div className="container-fluid mt-3">
-      <div className="row">
+    <div className="container mx-auto">
+      <div className="flex flex-row">
         <div className="col-sm-3">
           <div
-            className="nav flex-column nav-pills"
+            className="nav flex flex-col nav-pills"
             aria-orientation="vertical"
           >
             <NavLink className="nav-link" to="profile">
